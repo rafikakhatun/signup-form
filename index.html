@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sign up form</title>
+    <!--tailwind cdn-->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!--sweet alert cdn-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+
+<body class="bg-cover bg-center min-h-screen flex items-center justify-center"
+    style="background-image: url('/assets/body-background-image.jpg');">
+
+    <div style="background-image: url('/assets/snapedit_1746365040651.jpg');"
+        class="bg-white bg-cover bg-opacity-90  p-10 rounded-xl shadow-xl w-full max-w-md">
+        <h2 class="text-2xl font-bold text-white text-center mb-6">Sign Up</h2>
+        <form id="form">
+            <!--username input field-->
+            <div class="mb-6">
+                <label class="block mb-2 text-white font-medium" for="name">Username</label>
+                <input id="name" type="text"
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-700"
+                    placeholder="Enter your name">
+                <!--error massege-->
+                <span id="nameError"></span>
+            </div>
+
+            <!--Email input field-->
+
+            <div class="mb-6">
+                <label class="block mb-2 text-white font-medium" for="email">Email</label>
+                <input id="email" type="email"
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-700"
+                    placeholder="Enter your email">
+                <!--error massege-->
+                <span id="emailError"></span>
+            </div>
+
+            <!--password input field-->
+            <div class="mb-6">
+                <label class="block mb-2 text-white font-medium" for="password">Password</label>
+                <input id="password" type="password"
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-700"
+                    placeholder="Enter your password">
+                <!--error massege-->
+                <span id="passwordError"></span>
+            </div>
+            <button type="submit" class="w-full mt-6 bg-[#573A89] text-white py-2 rounded-lg hover:bg-violet-500">Sign
+                Up</button>
+        </form>
+
+    </div>
+
+
+
+
+
+
+
+
+    <script>
+
+       
+
+
+        // Name Validation
+const name = document.getElementById("name");
+const nameError = document.getElementById("nameError");
+
+name.addEventListener("keyup", () => {
+    const nameValue = name.value.trim();
+
+    if (nameValue === "") {
+        nameError.textContent = "Name field is required";
+        nameError.style.color = "red";
+    } else if (nameValue.length < 3) {
+        nameError.textContent = "Name must be at least 3 characters";
+        nameError.style.color = "red";
+    } else if (!/^[a-zA-Z\s]+$/.test(nameValue)) {
+        nameError.textContent = "Name must contain only letters and spaces";
+        nameError.style.color = "red";
+    } else {
+        nameError.textContent = "Valid name";
+        nameError.style.color = "green";
+    }
+});
+
+// Email Validation
+const email = document.getElementById("email");
+const emailError = document.getElementById("emailError");
+
+email.addEventListener("keyup", () => {
+    const emailValue = email.value.trim();
+
+    if (emailValue === "") {
+        emailError.textContent = "Email field is required";
+        emailError.style.color = "red";
+    } else if (!/[0-9]/.test(emailValue)) {
+        emailError.textContent = "Email must contain at least one number";
+        emailError.style.color = "red";
+    } else if (!/[!@#\$%\^&\*\.\-_]/.test(emailValue)) {
+        emailError.textContent = "Email must contain at least one special character (@, ., _, etc)";
+        emailError.style.color = "red";
+    } else {
+        emailError.textContent = "Valid email";
+        emailError.style.color = "green";
+    }
+});
+
+// Password Validation
+const password = document.getElementById("password");
+const passwordError = document.getElementById("passwordError");
+
+password.addEventListener("keyup", () => {
+    const passwordValue = password.value.trim();
+
+    if (passwordValue === "") {
+        passwordError.textContent = "Password field is required";
+        passwordError.style.color = "red";
+    } else if (!/[!@#\$%\^&\*]/.test(passwordValue)) {
+        passwordError.textContent = "Password must include at least one special character (!, @, #, etc)";
+        passwordError.style.color = "red";
+    } else {
+        passwordError.textContent = "Valid password";
+        passwordError.style.color = "green";
+    }
+});
+
+
+ // Submit Event - success message if all fields are valid
+ const form = document.getElementById("form");
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            const isNameValid = nameError.textContent === "Valid name";
+            const isEmailValid = emailError.textContent === "Valid email";
+            const isPasswordValid = passwordError.textContent === "Valid password";
+
+             // Check if any field is empty
+             if (name.value.trim() === "" || email.value.trim() === "" || password.value.trim() === "") {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Please fill all fields!',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            } else {
+                // If no fields are empty, show success alert
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'SignUp successfully!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+                form.reset(); // Reset form if submitted successfully
+            }
+        });
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
